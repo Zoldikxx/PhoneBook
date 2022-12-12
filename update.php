@@ -27,25 +27,18 @@
             <table>
                 <?php
 
-                function updateData($filename, $content, $mode)
-                {
-                    if (!file_exists($filename)) fopen($filename, "w");
-                    $fp = fopen($filename, $mode) or die("error in opening the file");
-                    fputs($fp, $content);
-                    fclose($fp) or die("error in closing the file !");
-                }
 
-                function edit($name, $phone)
+                function EditData($NEWname, $NEWphone)
                 {
                     $dataTxt = 'data.txt';
                     $loadData = @file($dataTxt, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     foreach ($loadData as $data) {
 
                         $expData = explode('|', $data);
-                        $myName = $expData[0];
-                        $myPhone = $expData[1];
+                        $Phone = $expData[1];
+                        $Name = $expData[0];
 
-                        if ($myName == $name || $myPhone == $phone) {
+                        if ($Phone == $NEWphone || $Name == $NEWname) {
                             $out = $data;
                             break;
                         } else {
@@ -55,24 +48,33 @@
                     return $out;
                 }
 
+
+
                 if (isset($_POST['contactName'])) {
                     define('file', 'data.txt');
                     if (!file_exists(file)) {
-                        updateData(file, "$name|$phone" . PHP_EOL, 'a');
+                        update(file, "$newname|$newphone" . PHP_EOL, 'a');
                     }
 
-                    $name = $_POST['contactName'];
-                    $phone = $_POST['contactNo'];
-                    $lastData = edit($_POST['contactName'], $_POST['contactNo']);
-                    $content = str_replace($lastData, "$name|$phone", file_get_contents(file));
-                    updateData(file, $content, 'w');
+                    $newname = $_POST['contactName'];
+                    $newphone = $_POST['contactNo'];
+                    $lastData = EditData($_POST['contactName'], $_POST['contactNo']);
+                    $content = str_replace($lastData, "$newname|$newphone", file_get_contents(file));
+                    update(file, $content, 'w');
                 }
 
-                if (!empty($_POST['contactName']) && !empty($_POST['contactNo'])) {
-                    $loadData = edit($_POST['contactName'], $_POST['contactNo']);
-                    $exdata = explode('|', $loadData);
-                    $name = $exdata[0];
-                    $phone = $exdata[1];
+                if (!empty($_POST['contactNo']) && !empty($_POST['contactName'])) {
+                    $loadData = EditData($_POST['contactName'], $_POST['contactNo']);
+                }
+
+
+                function update($filename, $content, $mode)
+                {
+                    if (!file_exists($filename))
+                        fopen($filename, "w") or die("file not exist ");
+                    $fp = fopen($filename, $mode) or die("ERROR !!!!!");
+                    fputs($fp, $content);
+                    fclose($fp) or die("ERROR !!!!!");
                 }
 
                 ?>
