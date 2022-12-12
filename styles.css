@@ -15,9 +15,6 @@ header {
     text-align: center;
 }
 
-/* .div1 {
-    margin-top: 50px;
-} */
 
 #title,
 #headFrm {
@@ -62,17 +59,14 @@ h2 {
     font-size: 17px;
 }
 
-/* Navbar links on mouse-over */
 .navbar a:hover {
     background-color: #000;
 }
 
-/* Current/active navbar link */
 .active {
     background-color: rgb(43, 114, 196);
 }
 
-/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
 @media screen and (max-width: 500px) {
     .navbar a {
         float: none;
@@ -224,11 +218,11 @@ td {
 
 
 tr:nth-child(even) {
-    background-color: #1eccb5;
+    background-color: #FDF5F5;
 }
 
 tr:nth-child(odd) {
-    background-color: aqua
+    background-color: #FDF5F5;
 }
 
 th {
@@ -237,50 +231,4 @@ th {
     font-size: 25px;
     text-align: center;
     border-bottom: 2px solid black;
-}
-
-#delRow:hover {
-    background-color: rgb(228, 125, 125);
-    cursor: pointer;
-
-}
-
-#popup,
-#confirm,
-#existsup {
-    box-sizing: border-box;
-    padding: 30px;
-    margin-top: 0;
-    top: 30%;
-    border: 2px solid grey;
-    position: fixed;
-    left: 24.5%;
-    width: 700px;
-    height: 230px;
-    font-family: arial;
-    font-weight: bold;
-    background: #FDF5F5;
-    color: #FB0875;
-    display: none;
-    font-size: 24px;
-    display: none;
-}
-
-#ok,
-#yesbtn,
-#nobtn,
-#eok {
-    width: 90px;
-    height: 40px;
-    color: black;
-    background: #FB0875;
-    font-size: 20px;
-    font-weight: bold;
-    border: 3px solid salmon;
-    cursor: pointer;
-}
-
-#delRow {
-    border-top: black;
-    color: black;
 }

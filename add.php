@@ -25,7 +25,7 @@
         <main>
             <?php
             if (isset($_POST['contactName']) && isset($_POST['contactNo'])) {
-                $data = $_POST['contactName'] . "\n" . $_POST['contactNo'] . "\r\n";
+                $data = $_POST['contactName'] . "|" . $_POST['contactNo'] . "\r\n";
                 $ret = file_put_contents('data.txt', $data, FILE_APPEND | LOCK_EX);
             }
             ?>

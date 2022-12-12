@@ -45,8 +45,9 @@
                     <tr id="contInfo">
                         <td>
                             <?php
-                            for ($x = 0; $x < sizeof($arr); $x += 2) {
-                                echo $arr[$x];
+                            for ($x = 0; $x < sizeof($arr); $x += 1) {
+                                $expData = explode('|',  $arr[$x]);
+                                echo $expData[0];
                                 echo "<br>";
                             }
                             ?>
@@ -54,8 +55,9 @@
 
                         <td>
                             <?php
-                            for ($x = 1; $x < sizeof($arr); $x += 2) {
-                                echo $arr[$x];
+                            for ($x = 0; $x < sizeof($arr); $x += 1) {
+                                $expData = explode('|', $arr[$x]);
+                                echo $expData[1];
                                 echo "<br>";
                             }
                             ?>

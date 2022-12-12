@@ -44,40 +44,30 @@
                 </tr>
                 <?php
 
-                // if (isset($_POST['search'])) {
-                //     $loadData = @file(file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                //     $in = $_POST['search'];
-                //     foreach ($loadData as $data) {
-                //         $expData = explode('\n', $data);
-                //         $dbname = $expData[0];
-                //         $pattern = "/^.$in.\$/m";
-
-                //         if (preg_match($pattern, $dbname)) {
-                //             $outExp = explode('\n', $data);
-                //             $name = $outExp[0];
-                //             $phone = $outExp[1];
-                //         } else {
-                //             echo "Error";
-                //             echo $outExp;
-                //         }
-                //     }
-                // }
                 if (isset($_POST['search'])) {
-                    $search = $_POST['search'];
-                    $text = file_get_contents('data.txt');
-                    $lines = explode("\n", $text);
+                    $loadData = @file(file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
                     $in = $_POST['search'];
-                    if (in_array($_POST['search'], $lines)) {
-                        echo "Name is found";
-                    } else {
-                        echo "Name does not exist";
+                    foreach ($loadData as $data) {
+                        $expData = explode('|', $data);
+                        $dbname = $expData[0];
+                        $pattern = "/^.*$in.*\$/m";
+
+                        if (preg_match_all($pattern, $dbname, $xx)) {
+                            $outExp = explode('|', $data);
+                            $name = $outExp[0];
+                            $phone = $outExp[1];
+
+                ?>
+
+                            <tr>
+                                <td><?= $name; ?></td>
+                                <td><?= $phone; ?></td>
+                            </tr>
+                <?php
+                        }
                     }
                 }
                 ?>
-                <!-- <tr>
-                    <td><?= $name; ?></td>
-                    <td><?= $phone; ?></td>
-                </tr> -->
 
             </table>
         </main>

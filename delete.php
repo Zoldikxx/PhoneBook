@@ -24,23 +24,27 @@
 
         <main>
             <?php
-            $file = "data.txt";
-            $string = $_POST['user'];
-            $i = 0;
-            $array = array();
-            $read = fopen($file, "r") or die("can't open the file");
-            while (!feof($read)) {
-                $array[$i] = fgets($read);
-                ++$i;
-            }
-            fclose($read);
-
-            $write = fopen($file, "w") or die("can't open the file");
-            foreach ($array as $a) {
-                if (!strstr($a, $string)) fwrite($write, $a);
-            }
-            fclose($write);
+            define('file', 'data.txt');
             ?>
+            <?php
+            if (isset($_POST['user'])) {
+                $loadData = @file(file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                $in = $_POST['user'];
+                foreach ($loadData as $data) {
+                    $expData = explode('|', $data);
+                    $dbname = $expData[0];
+                    $pattern = "/^.*$in.*\$/m";
+
+                    if (preg_match($pattern, $dbname, $xx)) {
+                        $outExp = explode('|', $data);
+                        $contents = file_get_contents(file);
+                        $contents = str_replace($outExp, '', $contents);
+                        file_put_contents(file, $contents);
+                    }
+                }
+            }
+            ?>
+
             <form id="frm" name="info" method="POST" action="delete.php">
                 <h2>Please enter the name of the user to delete</h2>
                 <input type="text" name="user" id="name" class="addContact" placeholder="Name" />
