@@ -23,35 +23,32 @@
         </div>
 
         <main>
-            <?php
-            define('file', 'data.txt');
-            ?>
-            <?php
-            if (isset($_POST['user'])) {
-                $loadData = @file(file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                $in = $_POST['user'];
-                foreach ($loadData as $data) {
-                    $expData = explode('|', $data);
-                    $dbname = $expData[0];
-                    $pattern = "/^.*$in.*\$/m";
+            <form id="form" method="post" action="delete.php">
+                <div id="searchblock">
+                    <p class="pp">Search :</p>
+                </div>
+                <input type="text" name="search" id="searchContact" placeholder="Search" required></br></br>
+                <input type="submit" value="SEARCH" id="addCont" name="go">
+            </form>
 
-                    if (preg_match($pattern, $dbname, $xx)) {
-                        $outExp = explode('|', $data);
-                        $contents = file_get_contents(file);
-                        $contents = str_replace($outExp, '', $contents);
-                        file_put_contents(file, $contents);
+            <?php
+            if (isset($_POST["search"])) {
+                echo "<table>";
+                $myFile = fopen("data.txt", "r+") or die("cannot open file");
+                while (!feof($myFile)) {
+                    $line = fgets($myFile);
+                    $array = explode("|", $line);
+                    if (strpos($array[0], $_POST["search"]) !== false) {
+                        $name = $array[0];
+                        $phone = $array[1];
+                        echo "<tr><td> $name </td>";
+                        echo "<td> $phone </td>";
+                        echo "<td><a href=deleteUser.php?name=" . $name . ">Delete</a></td></tr>";
                     }
                 }
+                echo "</table>";
             }
             ?>
-
-            <form id="frm" name="info" method="POST" action="delete.php">
-                <h2>Please enter the name of the user to delete</h2>
-                <input type="text" name="user" id="name" class="addContact" placeholder="Name" />
-                <br><br>
-                <input type="submit" value="Delete" id="addCont" name="go">
-                <?php
-                ?>
         </main>
     </div>
 </body>

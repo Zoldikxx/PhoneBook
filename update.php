@@ -48,8 +48,6 @@
                     return $out;
                 }
 
-
-
                 if (isset($_POST['contactName'])) {
                     define('file', 'data.txt');
                     if (!file_exists(file)) {
